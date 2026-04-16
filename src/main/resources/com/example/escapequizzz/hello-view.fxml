@@ -5,22 +5,23 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #1a1a1a;" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="501.0" prefWidth="740.0" style="-fx-background-color: #1a1a1a;" stylesheets="@../../../style.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.escapequizzz.HelloController">
    <children>
-      <TextField alignment="CENTER" prefHeight="126.0" prefWidth="600.0" style="-fx-font-family: Segoe UI;" text="Bienvenue dans L'escapeQuizz">
+      <TextField alignment="CENTER" prefHeight="126.0" prefWidth="600.0" style="-fx-font-family: Segoe UI;" text="Bienvenue dans L'EscapeQuizz">
          <font>
             <Font size="25.0" />
          </font>
       </TextField>
-      <HBox prefHeight="127.0" prefWidth="600.0">
+      <HBox alignment="CENTER" prefHeight="142.0" prefWidth="513.0" style="-fx-spacing: 20px;" VBox.vgrow="NEVER">
          <children>
-         <ImageView fx:id="imageView" fitHeight="147.0" fitWidth="177.0" pickOnBounds="true" preserveRatio="true">
+         <ImageView fx:id="imageView" fitHeight="296.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true">
             <image>
                <Image url="@fond.jpg" />
             </image>
          </ImageView>
-            <TextField prefHeight="147.0" prefWidth="428.0" />
+            <Label id="emilien" fx:id="emilien" prefHeight="160.0" prefWidth="544.0" text="Emilien : Ecoutes-moi bien petit canard, après ma défaite j'ai déposé une bombe sur le plateau des 12 Coups de Midi. Chaque seconde compte si tu veux avoir une chance de la désamorcer." wrapText="true" HBox.hgrow="NEVER" />
          </children>
       </HBox>
+      <Button fx:id="suivant" mnemonicParsing="false" onAction="#Suivant" prefHeight="25.0" prefWidth="743.0" text="Suivant" />
    </children>
 </VBox>
