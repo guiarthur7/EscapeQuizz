@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="350.0" prefWidth="600.0" stylesheets="@../../../emilien.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <StackPane prefHeight="150.0" prefWidth="200.0">
+         <children>
+            <ImageView fitHeight="357.0" fitWidth="632.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@emilien.png" />
+               </image>
+            </ImageView>
+            <Label prefHeight="109.0" prefWidth="495.0" text="Bravo mon petit canard, voici le code de désamorçage : 647 (c'est mon nombre de participation à l'émission)" wrapText="true" />
+         </children>
+      </StackPane>
+   </children>
+</VBox>

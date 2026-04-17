@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="434.0" prefWidth="500.0" stylesheets="@../../../quizz.css" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.escapequizzz.HelloController">
+   <children>
+      <ImageView fitHeight="287.0" fitWidth="501.0" pickOnBounds="true">
+         <image>
+            <Image url="@quizz12.jpg" />
+         </image>
+      </ImageView>
+
+      <StackPane prefHeight="150.0" prefWidth="500.0">
+         <children>
+            <ImageView fitHeight="150.0" fitWidth="500.0" pickOnBounds="true">
+               <image>
+                  <Image url="@questions.png" />
+               </image>
+            </ImageView>
+
+            <VBox alignment="CENTER" spacing="15.0">
+               <children>
+                  <Label fx:id="questionLabel" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Votre question ici ?" />
+                  <HBox alignment="CENTER" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" prefWidth="100.0" text="Réponse A" />
+                        <Button mnemonicParsing="false" prefWidth="100.0" text="Réponse B" />
+                        <Button mnemonicParsing="false" prefWidth="100.0" text="Réponse C" />
+                        <Button mnemonicParsing="false" prefWidth="100.0" text="Réponse D" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </children>
+      </StackPane>
+   </children>
+</VBox>
