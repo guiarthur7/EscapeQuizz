@@ -63,6 +63,7 @@ public class QuizzController {
 
 	private void handleAnswer(String selectedAnswer) {
 		if (currentQuestion == null) {
+			loadNextQuestion();
 			return;
 		}
 
@@ -86,11 +87,15 @@ public class QuizzController {
 		currentQuestion = triviaService.fetchQuestion();
 
 		if (currentQuestion == null || currentQuestion.allAnswers == null || currentQuestion.allAnswers.size() < 4) {
-			questionLabel.setText("Impossible de charger une question pour le moment.");
-			answerA.setDisable(true);
-			answerB.setDisable(true);
-			answerC.setDisable(true);
-			answerD.setDisable(true);
+			questionLabel.setText("Impossible de charger une question pour le moment. Clique pour reessayer.");
+			answerA.setDisable(false);
+			answerB.setDisable(false);
+			answerC.setDisable(false);
+			answerD.setDisable(false);
+			answerA.setText("Reessayer");
+			answerB.setText("Reessayer");
+			answerC.setText("Reessayer");
+			answerD.setText("Reessayer");
 			return;
 		}
 
