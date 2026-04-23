@@ -23,13 +23,13 @@
 
             <VBox alignment="CENTER" prefHeight="29.0" prefWidth="474.0" spacing="15.0">
                <children>
-                  <Label fx:id="questionLabel" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Votre question ici ?" />
+                  <Label fx:id="questionLabel" style="-fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold;" text="Votre question ici ?" wrapText="true" />
                   <HBox alignment="CENTER" spacing="10.0">
                      <children>
-                        <Button fx:id="answerA" mnemonicParsing="false" onAction="#onAnswerA" prefWidth="100.0" text="Réponse A" />
-                        <Button fx:id="answerB" mnemonicParsing="false" onAction="#onAnswerB" prefWidth="100.0" text="Réponse B" />
-                        <Button fx:id="answerC" mnemonicParsing="false" onAction="#onAnswerC" prefWidth="100.0" text="Réponse C" />
-                        <Button fx:id="answerD" mnemonicParsing="false" onAction="#onAnswerD" prefWidth="100.0" text="Réponse D" />
+                        <Button fx:id="answerA" mnemonicParsing="false" onAction="#onAnswerA" prefWidth="100.0" text="Réponse A" wrapText="true" />
+                        <Button fx:id="answerB" mnemonicParsing="false" onAction="#onAnswerB" prefWidth="100.0" text="Réponse B" wrapText="true" />
+                        <Button fx:id="answerC" mnemonicParsing="false" onAction="#onAnswerC" prefWidth="100.0" text="Réponse C" wrapText="true" />
+                        <Button fx:id="answerD" mnemonicParsing="false" onAction="#onAnswerD" prefWidth="100.0" text="Réponse D" wrapText="true" />
                      </children>
                   </HBox>
                </children>

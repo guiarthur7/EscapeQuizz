@@ -12,12 +12,12 @@ import java.util.List;
 
 public class TriviaService {
 
-    private static final String API_URL = "https://opentdb.com/api.php?amount=1&type=multiple";
+    private static final String API_URL = "https://opentdb.com/api.php?amount=10&type=multiple";
     private static final int MAX_ATTEMPTS = 3;
     private final HttpClient client = HttpClient.newHttpClient();
     private final Gson gson = new Gson();
 
-    public Question fetchQuestion() {
+    public List<Question> fetchQuestions() {
         for (int attempt = 1; attempt <= MAX_ATTEMPTS; attempt++) {
             try {
                 HttpRequest request = HttpRequest.newBuilder()
@@ -31,38 +31,35 @@ public class TriviaService {
                     continue;
                 }
 
-                Question question = parseJson(response.body());
-                if (question != null) {
-                    return question;
+                List<Question> questions = parseJson(response.body());
+                if (questions != null && !questions.isEmpty()) {
+                    return questions;
                 }
             } catch (Exception e) {
                 System.err.println("Tentative API " + attempt + " echouee: " + e.getMessage());
             }
         }
-
-        return null;
+        return new ArrayList<>();
     }
 
-    private Question parseJson(String responseBody) {
+    private List<Question> parseJson(String responseBody) {
         if (responseBody == null || responseBody.isBlank()) {
             return null;
         }
 
         ApiResponse apiResponse = gson.fromJson(responseBody, ApiResponse.class);
-        if (apiResponse == null || apiResponse.response_code != 0 || apiResponse.results == null || apiResponse.results.isEmpty()) {
+        if (apiResponse == null || apiResponse.response_code != 0 || apiResponse.results == null) {
             return null;
         }
 
-        ApiQuestion rawQuestion = apiResponse.results.get(0);
-        if (rawQuestion == null || rawQuestion.correct_answer == null || rawQuestion.incorrect_answers == null || rawQuestion.incorrect_answers.size() < 3) {
-            return null;
+        List<Question> questions = new ArrayList<>();
+        for (ApiQuestion raw : apiResponse.results) {
+            List<String> allAnswers = new ArrayList<>();
+            allAnswers.add(raw.correct_answer);
+            allAnswers.addAll(raw.incorrect_answers);
+            Collections.shuffle(allAnswers);
+            questions.add(new Question(raw.question, raw.correct_answer, allAnswers));
         }
-
-        List<String> allAnswers = new ArrayList<>();
-        allAnswers.add(rawQuestion.correct_answer);
-        allAnswers.addAll(rawQuestion.incorrect_answers);
-
-        Collections.shuffle(allAnswers);
-        return new Question(rawQuestion.question, rawQuestion.correct_answer, allAnswers);
+        return questions;
     }
 }

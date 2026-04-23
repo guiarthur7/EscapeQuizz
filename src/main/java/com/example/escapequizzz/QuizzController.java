@@ -6,32 +6,18 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
-
 import java.io.IOException;
+import java.util.List;
 
 public class QuizzController {
 
 	private static final int TARGET_SCORE = 5;
 
-	@FXML
-	private Label questionLabel;
-
-	@FXML
-	private Label scoreLabel;
-
-	@FXML
-	private Button answerA;
-
-	@FXML
-	private Button answerB;
-
-	@FXML
-	private Button answerC;
-
-	@FXML
-	private Button answerD;
+	@FXML private Label questionLabel, scoreLabel;
+	@FXML private Button answerA, answerB, answerC, answerD;
 
 	private final TriviaService triviaService = new TriviaService();
+	private List<Question> questionStock;
 	private Question currentQuestion;
 	private int score = 0;
 
@@ -41,25 +27,10 @@ public class QuizzController {
 		loadNextQuestion();
 	}
 
-	@FXML
-	private void onAnswerA() {
-		handleAnswer(answerA.getText());
-	}
-
-	@FXML
-	private void onAnswerB() {
-		handleAnswer(answerB.getText());
-	}
-
-	@FXML
-	private void onAnswerC() {
-		handleAnswer(answerC.getText());
-	}
-
-	@FXML
-	private void onAnswerD() {
-		handleAnswer(answerD.getText());
-	}
+	@FXML private void onAnswerA() { handleAnswer(answerA.getText()); }
+	@FXML private void onAnswerB() { handleAnswer(answerB.getText()); }
+	@FXML private void onAnswerC() { handleAnswer(answerC.getText()); }
+	@FXML private void onAnswerD() { handleAnswer(answerD.getText()); }
 
 	private void handleAnswer(String selectedAnswer) {
 		if (currentQuestion == null) {
@@ -84,31 +55,21 @@ public class QuizzController {
 	}
 
 	private void loadNextQuestion() {
-		currentQuestion = triviaService.fetchQuestion();
-
-		if (currentQuestion == null || currentQuestion.allAnswers == null || currentQuestion.allAnswers.size() < 4) {
-			questionLabel.setText("Impossible de charger une question pour le moment. Clique pour reessayer.");
-			answerA.setDisable(false);
-			answerB.setDisable(false);
-			answerC.setDisable(false);
-			answerD.setDisable(false);
-			answerA.setText("Reessayer");
-			answerB.setText("Reessayer");
-			answerC.setText("Reessayer");
-			answerD.setText("Reessayer");
-			return;
+		if (questionStock == null || questionStock.isEmpty()) {
+			questionStock = triviaService.fetchQuestions();
 		}
 
-		answerA.setDisable(false);
-		answerB.setDisable(false);
-		answerC.setDisable(false);
-		answerD.setDisable(false);
+		if (questionStock != null && !questionStock.isEmpty()) {
+			currentQuestion = questionStock.remove(0);
 
-		questionLabel.setText(decodeHtml(currentQuestion.text));
-		answerA.setText(decodeHtml(currentQuestion.allAnswers.get(0)));
-		answerB.setText(decodeHtml(currentQuestion.allAnswers.get(1)));
-		answerC.setText(decodeHtml(currentQuestion.allAnswers.get(2)));
-		answerD.setText(decodeHtml(currentQuestion.allAnswers.get(3)));
+			questionLabel.setText(decodeHtml(currentQuestion.text));
+			answerA.setText(decodeHtml(currentQuestion.allAnswers.get(0)));
+			answerB.setText(decodeHtml(currentQuestion.allAnswers.get(1)));
+			answerC.setText(decodeHtml(currentQuestion.allAnswers.get(2)));
+			answerD.setText(decodeHtml(currentQuestion.allAnswers.get(3)));
+		} else {
+			questionLabel.setText("Erreur : Impossible de charger des questions.");
+		}
 	}
 
 	private void updateScoreLabel() {
@@ -123,23 +84,18 @@ public class QuizzController {
 			stage.setScene(scene);
 			stage.show();
 		} catch (IOException e) {
-			questionLabel.setText("Erreur de navigation vers la page finale.");
+			e.printStackTrace();
 		}
 	}
 
 	private String decodeHtml(String text) {
-		if (text == null) {
-			return "";
-		}
-
+		if (text == null) return "";
 		return text
 				.replace("&quot;", "\"")
 				.replace("&#039;", "'")
-				.replace("&apos;", "'")
 				.replace("&amp;", "&")
-				.replace("&lt;", "<")
-				.replace("&gt;", ">")
-				.replace("&eacute;", "e")
-				.replace("&uuml;", "u");
+				.replace("&eacute;", "é")
+				.replace("&egrave;", "è")
+				.replace("&agrave;", "à");
 	}
 }
